@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Day1 {
@@ -25,12 +26,15 @@ public class Day1 {
             }
         } catch (FileNotFoundException e) {}
 
-        Collections.sort(leftValues);
-        Collections.sort(rightValues);
-
         int sum = 0;
         for (int i = 0; i < leftValues.size(); i++) {
-            int distance = Math.abs(rightValues.get(i) - leftValues.get(i));
+            int instances = 0;
+            for (int x = 0; x < rightValues.size(); x++) {
+                if (Objects.equals(leftValues.get(i), rightValues.get(x))) {
+                    instances++;
+                }
+            }
+            int distance = leftValues.get(i) * instances;
             sum += distance;
         }
 
