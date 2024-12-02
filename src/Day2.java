@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Day2 {
@@ -24,7 +23,7 @@ public class Day2 {
                     levels.add(level);
                 }
             }
-        } catch (FileNotFoundException e) {}
+        } catch (FileNotFoundException _) {}
 
         int safeLevels = 0;
 
@@ -34,12 +33,26 @@ public class Day2 {
                 boolean increasing = (level.get(0) - level.get(1) < 0);
                 int firstInt = level.get(i);
                 int secondInt = level.get(i + 1);
+                int removeLevel = -1;
+                if (i + 2 < level.size() - 1) {
+                    removeLevel = level.get(i + 2) - firstInt;
+                }
                 int difference = secondInt - firstInt;
                 if ((difference < 1 || difference > 3) && increasing) {
                     safe = false;
+                    if (removeLevel != -1) {
+                        if ((removeLevel < 1 || removeLevel > 3)) {
+                            safe = true;
+                        }
+                    }
                 }
                 if ((difference > -1 || difference < -3) && !increasing) {
                     safe = false;
+                    if (removeLevel != -1) {
+                        if ((removeLevel > -1 || removeLevel < -3)) {
+                            safe = true;
+                        }
+                    }
                 }
             }
             if (safe) {
