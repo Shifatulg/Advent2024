@@ -34,58 +34,57 @@ public class Day4 {
         }
 
         int sum = 0;
+
         for (int r = 0; r < wordSearch.length; r++) {
             for (int c = 0; c < wordSearch[r].length; c++) {
                 String character = wordSearch[r][c];
-                if (character.equals("X")) {
-                    boolean vertical = c >= 3 && c <= 136;
-                    boolean horizontal = r >= 3 && r <= 136;
-                    if (vertical) {
-                        if ((wordSearch[r][c] + wordSearch[r][c + 1] + wordSearch[r][c + 2] + wordSearch[r][c + 3]).equals("XMAS")) {
-                            sum++;
-                        }
-                        if ((wordSearch[r][c + 3] + wordSearch[r][c + 2] + wordSearch[r][c + 1] + wordSearch[r][c]).equals("XMAS")) {
-                            System.out.println(sum);
-                        }
+                boolean up = r >= 3;
+                boolean down = r <= 136;
+                boolean left = c >= 3;
+                boolean right = c <= 136;
+                if (up) {
+                    if ((wordSearch[r][c] + wordSearch[r - 1][c] + wordSearch[r - 2][c] + wordSearch[r - 3][c]).equals("XMAS")) {
+                        sum++;
                     }
-                    if (horizontal) {
-                        if ((wordSearch[r][c] + wordSearch[r + 1][c] + wordSearch[r + 2][c] + wordSearch[r + 3][c]).equals("XMAS")) {
-                            sum++;
-                        }
-                        if ((wordSearch[r + 3][c] + wordSearch[r + 2][c] + wordSearch[r + 1][c] + wordSearch[r][c]).equals("XMAS")) {
-                            sum++;
-                        }
+                }
+                if (down) {
+                    if ((wordSearch[r][c] + wordSearch[r + 1][c] + wordSearch[r + 2][c] + wordSearch[r + 3][c]).equals("XMAS")) {
+                        sum++;
                     }
-                    boolean up = c >= 3;
-                    boolean down = c <= 136;
-                    boolean left = r >= 3;
-                    boolean right = r <= 136;
-                    if (up && left) {
-                        if ((wordSearch[r][c] + wordSearch[r - 1][c - 1] + wordSearch[r - 2][c - 2] + wordSearch[r - 3][c - 3]).equals("XMAS")) {
-                            sum++;
-                        }
+                }
+                if (left) {
+                    if ((wordSearch[r][c] + wordSearch[r][c - 1] + wordSearch[r][c - 2] + wordSearch[r][c - 3]).equals("XMAS")) {
+                        sum++;
                     }
-                    if (down && left) {
-                        if ((wordSearch[r][c] + wordSearch[r + 1][c - 1] + wordSearch[r + 2][c - 2] + wordSearch[r + 3][c - 3]).equals("XMAS")) {
-                            sum++;
-                        }
+                }
+                if (right) {
+                    if ((wordSearch[r][c] + wordSearch[r][c + 1] + wordSearch[r][c + 2] + wordSearch[r][c + 3]).equals("XMAS")) {
+                        sum++;
                     }
-                    if (up && right) {
-                        if ((wordSearch[r][c] + wordSearch[r - 1][c + 1] + wordSearch[r - 2][c + 2] + wordSearch[r - 3][c + 3]).equals("XMAS")) {
-                            sum++;
-                        }
+                }
+                if (up && left) {
+                    if ((wordSearch[r][c] + wordSearch[r - 1][c - 1] + wordSearch[r - 2][c - 2] + wordSearch[r - 3][c - 3]).equals("XMAS")) {
+                        sum++;
                     }
-                    if (down && left) {
-                        if ((wordSearch[r][c] + wordSearch[r + 1][c + 1] + wordSearch[r + 2][c + 2] + wordSearch[r + 3][c + 3]).equals("XMAS")) {
-                            sum++;
-                        }
+                }
+                if (down && left) {
+                    if ((wordSearch[r][c] + wordSearch[r + 1][c - 1] + wordSearch[r + 2][c - 2] + wordSearch[r + 3][c - 3]).equals("XMAS")) {
+                        sum++;
                     }
+                }
+                if (up && right) {
+                    if ((wordSearch[r][c] + wordSearch[r - 1][c + 1] + wordSearch[r - 2][c + 2] + wordSearch[r - 3][c + 3]).equals("XMAS")) {
+                        sum++;
+                    }
+                }
+                if (down && right) {
+                    if ((wordSearch[r][c] + wordSearch[r + 1][c + 1] + wordSearch[r + 2][c + 2] + wordSearch[r + 3][c + 3]).equals("XMAS")) {
+                        sum++;
+                     }
                 }
             }
         }
-
-
-        System.out.println(sum);
-        System.out.println(wordSearch.length + " " + wordSearch[0].length);
+    System.out.println(sum);
+    System.out.println(wordSearch.length + " " + wordSearch[0].length);
     }
 }
