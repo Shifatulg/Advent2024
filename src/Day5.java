@@ -17,28 +17,54 @@ public class Day5 {
             while (s.hasNextLine()) {
                 String line = s.nextLine();
                 if (line.contains("|")) {
-                    String[] rule = line.split("|");
+                    String[] rule = line.split("\\|");
                     xValues.add(Integer.parseInt(rule[0]));
                     yValues.add(Integer.parseInt(rule[1]));
                 } else if (!line.isEmpty()){
                     String[] rule = line.split(",");
                     ArrayList<Integer> levels = new ArrayList<>();
+                    for (String i : rule) {
+                        levels.add(Integer.parseInt(i));
+                    }
                     updates.add(levels);
                 }
             }
         } catch (FileNotFoundException _) {}
 
-        for (ArrayList<Integer> i : updates) {
-            ArrayList<Integer> localXValues = new ArrayList<>();
-            ArrayList<Integer> localYValues = new ArrayList<>();
-            for (int j = 0;  j < xValues.size(); i++) {
-                if (updates.contains(xValues.get(j)) && updates.contains(yValues.get(j))) {
+        ArrayList<Integer> middleValue = new ArrayList<>();
 
+        for (ArrayList<Integer> i : updates) {
+            ArrayList<Integer> validXPages = new ArrayList<>();
+            ArrayList<Integer> validYPages = new ArrayList<>();
+            for (int j = 0;  j < xValues.size(); j++) {
+
+                if (i.contains(xValues.get(j)) && i.contains(yValues.get(j))) {
+                    validXPages.add(xValues.get(j));
+                    validYPages.add(yValues.get(j));
+                }
+            }
+            if (validRule(validXPages, validYPages, i)) {
+                middleValue.add(i.get(i.size() / 2));
+            }
+        }
+
+        int sum = 0;
+        for (int i : middleValue) {
+            sum += i;
+        }
+        System.out.println(sum);
+    }
+
+    public static boolean validRule(ArrayList<Integer> xValues, ArrayList<Integer> yValues, ArrayList<Integer> updates) {
+        for (int j = 0; j < xValues.size(); j++) {
+            for (int i = 0; i < updates.size(); i++) {
+                for (int k = i; k < updates.size(); k++) {
+                    if (updates.get(k) == xValues.get(j) && updates.get(i) == yValues.get(j)) {
+                        return false;
+                    }
                 }
             }
         }
-    }
-    public boolean validRule(ArrayList<Integer> xValues, ArrayList<Integer> yValues, ArrayList<Integer> updates) {
         return true;
     }
 }
