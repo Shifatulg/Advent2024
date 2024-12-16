@@ -45,19 +45,33 @@ public class Day9 {
             }
         }
 
+        System.out.println(decodedString);
+
         for (int i = 0; i < decodedString.length(); i++) {
             if (decodedString.substring(i,i+1).equals(".")) {
-                for (int j = decodedString.length(); j > 0; j--) {
-                    if (!decodedString.substring(j-1,j).equals(".")) {
-                        String fragmentOne = decodedString.substring(0,i-1);
-                        String fragmentTwo = decodedString.substring(i+1,j-1);
-                        String fragmentThree = decodedString.substring(j) + ".";
-                        decodedString = fragmentThree + fragmentTwo + fragmentOne;
+                boolean replaced = true;
+                int j = decodedString.length() - 1;
+                while (replaced && j > 0) {
+                    System.out.println(j + " " + i);
+                    System.out.println(decodedString);
+                    System.out.println(decodedString.substring(j-1,j));
+                    if (!decodedString.substring(j - 1, j).equals(".")) {
+                        System.out.println("wsg");
+                        char[] charArray = decodedString.toCharArray();
+                        char oldChar = charArray[i];
+                        char newChar = charArray[j];
+                        charArray[i] = newChar;
+                        charArray[j] = oldChar;
+                        decodedString = String.valueOf(charArray);
+                        replaced = false;
+                        // https://www.geeksforgeeks.org/swapping-characters-string-java/
                     }
+                    j--;
                 }
             }
         }
-        System.out.println(decodedString);
-    }
 
+        System.out.println(decodedString);
+
+    }
 }
